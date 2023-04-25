@@ -1,9 +1,10 @@
-import 'package:http/http.dart' as http;
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:medicine_app/core/models/medicine_model.dart';
 import 'package:medicine_app/core/models/response_model.dart';
 import 'package:medicine_app/core/services/http_service.dart';
+import 'package:medicine_app/main.dart';
 import 'package:medicine_app/utilities/constants/medicine_constant.dart';
 import 'package:medicine_app/utilities/constants/url_contant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,16 +12,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HomeProvider extends ChangeNotifier {
   bool _isLoading = true;
   List<MedicineModel> _medicineList = [];
+  ScrollController _scrollController = ScrollController();
 
   bool get isLoading => _isLoading;
   List<MedicineModel> get medicineList => _medicineList;
+  ScrollController get scrollController => _scrollController;
 
-  Future<void> initialize() async {
+  void setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  Future<void> fetchData() async {
     _isLoading = true;
 
-    final prefs = await SharedPreferences.getInstance();
+    String? medicineListData =
+        localPrefs.getString(MedicineConstants.medicineList);
+    double? scrollController = localPrefs.getDouble(MedicineConstants.scroll);
 
-    String? medicineListData = prefs.getString(MedicineConstants.medicineList);
+    _scrollController =
+        ScrollController(initialScrollOffset: scrollController ?? 0.0);
 
     if (medicineListData != null) {
       ResponseModel responseModel = ResponseModel.fromJson(medicineListData);
@@ -32,28 +43,27 @@ class HomeProvider extends ChangeNotifier {
         ResponseModel responseModel = ResponseModel.fromJson(response.body);
         _medicineList = responseModel.data;
 
-        await prefs.setString(MedicineConstants.medicineList, response.body);
+        await localPrefs.setString(
+            MedicineConstants.medicineList, response.body);
       } else {
-        throw Exception('Failed to fetch posts');
+        throw Exception('Failed to get data.');
       }
     }
 
     _isLoading = false;
-    notifyListeners();
   }
 
-  void setLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
+  Future<void> refreshMedicineList() async {
+    setLoading(true);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+
+    await fetchData();
+    setLoading(false);
   }
 
-  void setMedicineList(List<MedicineModel> medicineList) {
-    _medicineList = medicineList;
-    notifyListeners();
-  }
-
-  void refreshMedicineList(List<MedicineModel> medicineList) {
-    _medicineList = medicineList;
-    notifyListeners();
+  void setScrollController(ScrollController scrollController) {
+    localPrefs.setDouble(MedicineConstants.scroll, scrollController.offset);
+    scrollController = _scrollController;
   }
 }

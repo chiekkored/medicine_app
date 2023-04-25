@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:medicine_app/core/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:medicine_app/views/screens/splash/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+late SharedPreferences localPrefs;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  localPrefs = await SharedPreferences.getInstance();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<HomeProvider>(

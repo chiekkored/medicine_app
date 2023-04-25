@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder<void>(
-          future: homeProvider.initialize(),
+          future: homeProvider.fetchData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
