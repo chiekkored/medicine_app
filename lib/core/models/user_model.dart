@@ -5,9 +5,9 @@ class UserModel {
   String type;
   String age;
   UserModel({
-    required this.name,
-    required this.type,
-    required this.age,
+    this.name = "",
+    this.type = "",
+    this.age = "",
   });
 
   Map<String, dynamic> toMap() {

@@ -6,8 +6,8 @@ import 'package:medicine_app/views/screens/splash/splash_screen.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider<HomeProvider>.value(
-        value: HomeProvider(),
+      ChangeNotifierProvider<HomeProvider>(
+        create: (context) => HomeProvider(),
       ),
     ],
     child: const MyApp(),

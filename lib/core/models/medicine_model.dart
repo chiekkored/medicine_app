@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:medicine_app/utilities/constants/medicine_constant.dart';
 
 class MedicineModel {
-  NameType nameType;
+  String nameType;
   String drugName;
   MedicineModel({
     required this.nameType,
@@ -12,15 +12,15 @@ class MedicineModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'nameType': nameType,
-      'drugName': drugName,
+      'name_type': nameType,
+      'drug_name': drugName,
     };
   }
 
   factory MedicineModel.fromMap(Map<String, dynamic> map) {
     return MedicineModel(
-      nameType: NameType.values.byName(map["nameType"]),
-      drugName: map['drugName'] as String,
+      nameType: map['name_type'] as String,
+      drugName: map['drug_name'] as String,
     );
   }
 

@@ -1,28 +1,32 @@
 import 'dart:convert';
 
 import 'package:medicine_app/core/models/medicine_model.dart';
-import 'package:medicine_app/utilities/constants/connection_contant.dart';
 
 class ResponseModel {
-  ConnectionStatus status;
-  MedicineModel data;
+  List<MedicineModel> data;
+  Map<String, dynamic> metadata;
   ResponseModel({
-    required this.status,
     required this.data,
+    required this.metadata,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'status': status.toString(),
-      'data': data.toMap(),
+      'data': data.map((x) => x.toMap()).toList(),
+      'metadata': metadata,
     };
   }
 
   factory ResponseModel.fromMap(Map<String, dynamic> map) {
     return ResponseModel(
-      status: ConnectionStatus.values.byName(map['status']),
-      data: MedicineModel.fromMap(map['data'] as Map<String, dynamic>),
-    );
+        data: List<MedicineModel>.from(
+          (map['data'] as List<dynamic>).map<MedicineModel>(
+            (x) => MedicineModel.fromMap(x as Map<String, dynamic>),
+          ),
+        ),
+        metadata: Map<String, dynamic>.from(
+          (map['metadata'] as Map<String, dynamic>),
+        ));
   }
 
   String toJson() => json.encode(toMap());

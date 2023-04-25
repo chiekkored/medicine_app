@@ -8,7 +8,7 @@
 
 **`MVVM + Provider` - Model View View Models + Provider**
 
-# Getting Started55
+# Getting Started
 
 - _*First install or upgrade to the latest version of Flutter. Follow these installation* [*guides* ](https://flutter.dev/docs/get-started/install)_
 
@@ -29,6 +29,7 @@ lib
       └── models
       └── providers
       └── viewmodels
+      └── services
  └── utilities
       └── configs
       └── constants
@@ -160,6 +161,10 @@ Provider class with ChangeNotifiers are created here.
 ## `lib/core/viewmodels`
 
 View Model class are created here.
+
+## `lib/core/viewmodels`
+
+This contains functions that fetch from API.
 
 ## `lib/utilities`
 
