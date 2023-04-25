@@ -1,0 +1,4 @@
+enum NameType {
+  b,
+  g,
+}
