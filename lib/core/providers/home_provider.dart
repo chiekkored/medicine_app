@@ -11,10 +11,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeProvider extends ChangeNotifier {
   bool _isLoading = true;
+  bool _isAZSorted = false;
   List<MedicineModel> _medicineList = [];
   ScrollController _scrollController = ScrollController();
 
   bool get isLoading => _isLoading;
+  bool get isAZSorted => _isAZSorted;
   List<MedicineModel> get medicineList => _medicineList;
   ScrollController get scrollController => _scrollController;
 
@@ -28,6 +30,7 @@ class HomeProvider extends ChangeNotifier {
 
     String? medicineListData =
         localPrefs.getString(MedicineConstants.medicineList);
+    // localPrefs.clear();
     double? scrollController = localPrefs.getDouble(MedicineConstants.scroll);
 
     _scrollController =
@@ -53,10 +56,34 @@ class HomeProvider extends ChangeNotifier {
     _isLoading = false;
   }
 
-  Future<void> refreshMedicineList() async {
+  void setMedicineList(List<MedicineModel> medicineList) {
+    _medicineList = medicineList;
+    notifyListeners();
+  }
+
+  Future<void> setMedicineListToLocal() async {
+    await localPrefs.setString(MedicineConstants.medicineList,
+        ResponseModel(data: _medicineList).toJson());
+    notifyListeners();
+  }
+
+  void sortMedicineListAsc() async {
+    _medicineList.sort((a, b) => b.drugName.compareTo(a.drugName));
+    await setMedicineListToLocal();
+    _isAZSorted = !_isAZSorted;
+    notifyListeners();
+  }
+
+  void sortMedicineListDesc() async {
+    _medicineList.sort((a, b) => a.drugName.compareTo(b.drugName));
+    await setMedicineListToLocal();
+    _isAZSorted = !_isAZSorted;
+    notifyListeners();
+  }
+
+  void refreshMedicineList() async {
     setLoading(true);
-    final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    localPrefs.clear();
 
     await fetchData();
     setLoading(false);
