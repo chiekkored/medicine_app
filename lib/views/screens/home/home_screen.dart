@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_app/core/models/medicine_model.dart';
-import 'package:medicine_app/core/providers/home_provider.dart';
+import 'package:medicine_app/core/viewmodels/home_viewmodel.dart';
 import 'package:medicine_app/utilities/constants/color_constant.dart';
 import 'package:medicine_app/utilities/constants/sizing_constant.dart';
 import 'package:medicine_app/views/commons/listtile_common.dart';
 import 'package:medicine_app/views/commons/progress_indicator_common.dart';
 import 'package:medicine_app/views/commons/transition_common.dart';
+import 'package:medicine_app/views/screens/medicine/medicine_form_screen.dart';
 import 'package:medicine_app/views/screens/search/search_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -20,28 +21,45 @@ class HomeScreen extends StatelessWidget {
       key: scaffoldKey,
       drawer: drawerWidget(),
       appBar: appBarWidget(scaffoldKey, context),
-      body: Consumer<HomeProvider>(builder: (context, homeProvider, _) {
-        if (homeProvider.isLoading) {
-          return const Center(child: CustomProgressIndicator());
-        } else {
-          scrollController = homeProvider.scrollController;
-          scrollController.addListener(
-              () => homeProvider.setScrollController(scrollController));
-          return RefreshIndicator(
-            onRefresh: () async => homeProvider.refreshMedicineList(),
-            child: SingleChildScrollView(
-              controller: scrollController,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  sortWidget(homeProvider),
-                  listWidget(homeProvider),
-                ],
+      body: Consumer<HomeViewModel>(
+        builder: (context, homeViewModel, _) {
+          if (homeViewModel.isLoading) {
+            return const Center(child: CustomProgressIndicator());
+          } else {
+            scrollController = homeViewModel.scrollController;
+            scrollController.addListener(
+                () => homeViewModel.setScrollController(scrollController));
+            return RefreshIndicator(
+              onRefresh: () async => homeViewModel.refreshMedicineList(),
+              child: SingleChildScrollView(
+                controller: scrollController,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    sortWidget(homeViewModel),
+                    listWidget(homeViewModel),
+                  ],
+                ),
               ),
-            ),
-          );
-        }
-      }),
+            );
+          }
+        },
+      ),
+      floatingActionButton: fabWidget(context),
+    );
+  }
+
+  FloatingActionButton fabWidget(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MedicineFormScreen(),
+              fullscreenDialog: true)),
+      child: const Icon(
+        Icons.add_rounded,
+        size: 32.0,
+      ),
     );
   }
 
@@ -95,18 +113,18 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  ListView listWidget(HomeProvider homeProvider) {
+  ListView listWidget(HomeViewModel homeViewModel) {
     return ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: homeProvider.medicineList.length,
+        itemCount: homeViewModel.medicineList.length,
         itemBuilder: (context, index) {
-          MedicineModel medicine = homeProvider.medicineList[index];
-          return CustomListTile(medicine: medicine);
+          MedicineModel medicine = homeViewModel.medicineList[index];
+          return CustomListTile(medicine: medicine, index: index);
         });
   }
 
-  Padding sortWidget(HomeProvider homeProvider) {
+  Padding sortWidget(HomeViewModel homeViewModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: Sizing.w16, vertical: Sizing.h8),
@@ -115,10 +133,10 @@ class HomeScreen extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              if (homeProvider.isAZSorted) {
-                homeProvider.sortMedicineListDesc();
+              if (homeViewModel.isAZSorted) {
+                homeViewModel.sortMedicineListDesc();
               } else {
-                homeProvider.sortMedicineListAsc();
+                homeViewModel.sortMedicineListAsc();
               }
             },
             child: Row(
@@ -135,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                   width: 2.0,
                 ),
                 Icon(
-                  homeProvider.isAZSorted
+                  homeViewModel.isAZSorted
                       ? Icons.north_rounded
                       : Icons.south_rounded,
                   size: 16.0,

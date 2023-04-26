@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_app/core/models/medicine_model.dart';
-import 'package:medicine_app/core/providers/home_provider.dart';
+import 'package:medicine_app/core/viewmodels/home_viewmodel.dart';
 import 'package:medicine_app/views/commons/listtile_common.dart';
 import 'package:provider/provider.dart';
 
@@ -12,8 +12,8 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<MedicineModel> resultList = [];
-    HomeProvider homeProvider =
-        Provider.of<HomeProvider>(context, listen: true);
+    HomeViewModel homeViewModel =
+        Provider.of<HomeViewModel>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -28,7 +28,7 @@ class SearchScreen extends StatelessWidget {
         title: TextField(
           controller: searchQueryController,
           autofocus: true,
-          onChanged: (value) => homeProvider.searchMedicineList(value),
+          onChanged: (value) => homeViewModel.searchMedicineList(value),
           decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'Search',
@@ -38,15 +38,15 @@ class SearchScreen extends StatelessWidget {
               suffixIconColor: Colors.grey),
         ),
       ),
-      body: Consumer<HomeProvider>(builder: (context, homeProvider, _) {
+      body: Consumer<HomeViewModel>(builder: (context, homeViewModel, _) {
         searchQueryController.text.isEmpty
             ? resultList.clear()
-            : resultList.addAll(homeProvider.searchResultMedicineList);
+            : resultList.addAll(homeViewModel.searchResultMedicineList);
         return ListView.builder(
             itemCount: resultList.length,
             itemBuilder: (context, index) {
               MedicineModel medicine = resultList[index];
-              return CustomListTile(medicine: medicine);
+              return CustomListTile(medicine: medicine, index: index);
             });
       }),
     );

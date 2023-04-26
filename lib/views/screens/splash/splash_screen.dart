@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:medicine_app/core/providers/home_provider.dart";
+import "package:medicine_app/core/viewmodels/home_viewmodel.dart";
 import "package:medicine_app/views/screens/home/home_screen.dart";
 import "package:provider/provider.dart";
 
@@ -8,14 +8,14 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeProvider homeProvider =
-        Provider.of<HomeProvider>(context, listen: false);
+    HomeViewModel homeViewModel =
+        Provider.of<HomeViewModel>(context, listen: false);
     // Get device width
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: FutureBuilder<void>(
-          future: homeProvider.fetchData(),
+          future: homeViewModel.fetchData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
