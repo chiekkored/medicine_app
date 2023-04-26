@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medicine_app/core/models/medicine_model.dart';
 import 'package:medicine_app/core/viewmodels/home_viewmodel.dart';
 import 'package:medicine_app/utilities/constants/sizing_constant.dart';
+import 'package:medicine_app/views/commons/popup_common.dart';
 import 'package:medicine_app/views/commons/text_common.dart';
 import 'package:medicine_app/views/commons/textfield_common.dart';
 import 'package:provider/provider.dart';
@@ -87,16 +88,24 @@ class MedicineFormScreen extends StatelessWidget {
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
-                  MedicineModel medicineForm = MedicineModel(
-                      nameType:
-                          nameTypeController.text == "Branded" ? "B" : "G",
-                      drugName: drugNameController.text);
-                  if (medicine != null) {
-                    homeViewModel.updateMedicineList(medicineForm, index!);
+                  if (drugNameController.text.isNotEmpty &&
+                      nameTypeController.text.isNotEmpty) {
+                    MedicineModel medicineForm = MedicineModel(
+                        nameType:
+                            nameTypeController.text == "Branded" ? "B" : "G",
+                        drugName: drugNameController.text);
+                    if (medicine != null) {
+                      homeViewModel.updateMedicineList(medicineForm, index!);
+                    } else {
+                      homeViewModel.addMedicineList(medicineForm);
+                    }
+                    Navigator.pop(context);
                   } else {
-                    homeViewModel.addMedicineList(medicineForm);
+                    customShowCustomDialog(context,
+                        title: "Input missing",
+                        content: "All fields must be provided and filled.",
+                        buttonText: "Okay");
                   }
-                  Navigator.pop(context);
                 },
                 child: const Text("Submit"),
               ),
