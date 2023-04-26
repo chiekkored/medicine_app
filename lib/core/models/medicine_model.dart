@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:medicine_app/utilities/constants/medicine_constant.dart';
-
 class MedicineModel {
   String nameType;
   String drugName;

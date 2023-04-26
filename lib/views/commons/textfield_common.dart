@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_app/utilities/constants/color_constant.dart';
 
+/// Custom Text Field.
+///
+/// This Widget accepts five parameters: [TextEditingController] `textFieldController`
+/// for controlling the text field, [String] `hintText` for displaying hint text
+/// inside the field, [bool] `readOnl` for determining if the text field is tappable
+/// or not, [Widget] `suffixIcon` for displaying an icon on the end of the field, and
+/// [void Function] `onTap` for representing the action if the user taps the field.
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,

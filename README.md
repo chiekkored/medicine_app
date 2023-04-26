@@ -20,24 +20,26 @@ Directory folders are already arranged based on its purpose. So make sure to fol
 
 ```
 assets
- └── fonts
+ └── fonts*
  └── images
- └── svg
+ └── svg*
 lib
  └── core
-      └── extensions
+      └── extensions*
       └── models
-      └── providers
+      └── providers*
       └── viewmodels
       └── services
  └── utilities
-      └── configs
+      └── configs*
       └── constants
-      └── helpers
+      └── helpers*
  └── views
       └── commons
       └── screens
 ```
+
+_(\*) not included in this project_
 
 ## Create new files inside a directory
 
@@ -130,7 +132,7 @@ Reference Dart comments here: [Dart Comment Guides](https://dart.dev/guides/lang
 
 Asset files that includes external files.
 
-## `assets/fonts`
+## `assets/fonts`<span style="color:red;">\*</span>
 
 Custom imported fonts directory.
 
@@ -138,7 +140,7 @@ Custom imported fonts directory.
 
 Custom imported images directory.
 
-## `assets/svg`
+## `assets/svg`<span style="color:red;">\*</span>
 
 Custom imported SVG files directory.
 
@@ -146,7 +148,7 @@ Custom imported SVG files directory.
 
 Core files that completes the **MVVM Architecture**.
 
-## `lib/core/extensions`
+## `lib/core/extensions`<span style="color:red;">\*</span>
 
 Extending data type methods are created here.
 
@@ -154,23 +156,23 @@ Extending data type methods are created here.
 
 Data model class are created here.
 
-## `lib/core/providers`
+## `lib/core/providers`<span style="color:red;">\*</span>
 
 Provider class with ChangeNotifiers are created here.
 
 ## `lib/core/viewmodels`
 
-View Model class are created here.
+View Model with Provider class are created here.
 
-## `lib/core/viewmodels`
+## `lib/core/services`
 
-This contains functions that fetch from API.
+A class for communicating between APIs and other web services.
 
 ## `lib/utilities`
 
 Utilities such as app configurations for backend and app constants like colors, fonts and icons.
 
-## `lib/utilities/configs`
+## `lib/utilities/configs`<span style="color:red;">\*</span>
 
 App Configurations are gathered here for backend and API purposes.
 
@@ -178,7 +180,7 @@ App Configurations are gathered here for backend and API purposes.
 
 App constants like color scheme, theming, font styles and other constant values are gathered here.
 
-## `lib/utilities/helpers`
+## `lib/utilities/helpers`<span style="color:red;">\*</span>
 
 Functions that are reusable in calculating or modifying data are created here.
 
@@ -193,3 +195,5 @@ Reusable and custom widgets are created here.
 ## `lib/view/screens`
 
 Pages and screen navigations are created here for rendering UI.
+
+_(<span style="color:red;">\*</span>) not included in this project_

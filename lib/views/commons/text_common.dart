@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// Custom Bold Text.
+///
+/// This Widget accepts two parameters: [String] `text` for the display text, and
+/// [double] `fontSize` for the size of the text.
 class CustomTextBold extends StatelessWidget {
   const CustomTextBold({
     super.key,
@@ -21,6 +25,10 @@ class CustomTextBold extends StatelessWidget {
   }
 }
 
+/// Custom Normal Text.
+///
+/// This Widget accepts two parameters: [String] `text` for the display text, and
+/// [double] `fontSize` for the size of the text.
 class CustomTextNormal extends StatelessWidget {
   const CustomTextNormal({
     super.key,

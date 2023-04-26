@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 
+/// This function returns a widget that creates a custom page transition
+/// that fades in a new screen.
 Route customPageTransitionFadeIn({required Widget screen}) {
   return PageRouteBuilder(
     transitionDuration: const Duration(milliseconds: 300),
