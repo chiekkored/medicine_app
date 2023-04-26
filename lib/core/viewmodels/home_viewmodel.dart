@@ -67,6 +67,7 @@ class HomeViewModel extends ChangeNotifier {
         await setMedicineListToLocal();
       } else {
         // Throw Exception if response has error
+        // NOTE If it throws host look up error, try restarting emulator
         throw Exception('Failed to get data.');
       }
     }

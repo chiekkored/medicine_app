@@ -9,6 +9,7 @@ late SharedPreferences localPrefs;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize local cache
   localPrefs = await SharedPreferences.getInstance();
   runApp(MultiProvider(
     providers: [

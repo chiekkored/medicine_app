@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:medicine_app/core/extensions/string_extension.dart';
 import 'package:medicine_app/core/models/medicine_model.dart';
 import 'package:medicine_app/core/viewmodels/home_viewmodel.dart';
+import 'package:medicine_app/utilities/constants/medicine_constant.dart';
 import 'package:medicine_app/utilities/constants/sizing_constant.dart';
 import 'package:medicine_app/views/commons/popup_common.dart';
 import 'package:medicine_app/views/commons/text_common.dart';
@@ -21,6 +23,7 @@ class MedicineFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // If medicne value is provided, populate text fields
     if (medicine != null) {
       drugNameController.text = medicine!.drugName;
       nameTypeController.text =
@@ -39,7 +42,7 @@ class MedicineFormScreen extends StatelessWidget {
               padding: EdgeInsets.only(bottom: Sizing.h8),
               child: CustomTextBold(
                 text: "Drug Name",
-                fontSize: 22.0,
+                fontSize: Sizing.t22,
               ),
             ),
             CustomTextFormField(
@@ -51,9 +54,10 @@ class MedicineFormScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: Sizing.w16),
               child: CustomTextBold(
                 text: "Name Type",
-                fontSize: 22.0,
+                fontSize: Sizing.t22,
               ),
             ),
+            // Popup for Name type
             Builder(
               builder: (context) {
                 return CustomTextFormField(
@@ -76,6 +80,7 @@ class MedicineFormScreen extends StatelessWidget {
         padding: const EdgeInsets.all(Sizing.w16),
         child: Row(
           children: [
+            // Cancel button
             Expanded(
               child: OutlinedButton(
                 onPressed: () => Navigator.pop(context),
@@ -85,22 +90,27 @@ class MedicineFormScreen extends StatelessWidget {
             const SizedBox(
               width: 16.0,
             ),
+            // Submit button
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
+                  // Textfield validation
                   if (drugNameController.text.isNotEmpty &&
                       nameTypeController.text.isNotEmpty) {
                     MedicineModel medicineForm = MedicineModel(
                         nameType:
                             nameTypeController.text == "Branded" ? "B" : "G",
                         drugName: drugNameController.text);
+                    // If medicine value is provided, just update data
                     if (medicine != null) {
                       homeViewModel.updateMedicineList(medicineForm, index!);
                     } else {
+                      // If medicine value is NOT provided, add item to data
                       homeViewModel.addMedicineList(medicineForm);
                     }
                     Navigator.pop(context);
                   } else {
+                    // Show dialog error
                     customShowCustomDialog(context,
                         title: "Input missing",
                         content: "All fields must be provided and filled.",
@@ -135,6 +145,7 @@ class MedicineFormScreen extends StatelessWidget {
                 ),
               ),
               const Divider(),
+              // Branded item
               ListTile(
                 onTap: () => Navigator.pop(context, "Branded"),
                 leading: const Icon(
@@ -144,14 +155,18 @@ class MedicineFormScreen extends StatelessWidget {
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: Sizing.h8, horizontal: Sizing.w16),
-                title: const CustomTextNormal(text: "Branded", fontSize: 16.0),
+                title: CustomTextNormal(
+                    text: MedicineConstants.branded.capitalizeFirstLetter,
+                    fontSize: 16.0),
                 subtitle: const CustomTextNormal(
                     text:
                         "A drug sold by a drug company under a specific name or trademark and that is protected by a patent",
                     fontSize: 12.0),
               ),
+              // Generic item
               ListTile(
-                onTap: () => Navigator.pop(context, "Generic"),
+                onTap: () => Navigator.pop(
+                    context, MedicineConstants.generic.capitalizeFirstLetter),
                 leading: const Icon(
                   Icons.local_pharmacy_rounded,
                   color: Colors.amber,

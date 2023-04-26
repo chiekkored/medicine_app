@@ -26,9 +26,12 @@ class HomeScreen extends StatelessWidget {
       appBar: appBarWidget(scaffoldKey, context),
       body: Consumer<HomeViewModel>(
         builder: (context, homeViewModel, _) {
+          // If isLoading provider is true
           if (homeViewModel.isLoading) {
             return const Center(child: CustomProgressIndicator());
           } else {
+            // If isLoading provider is false
+            // Add scroll listener for scroll persistence
             scrollController = homeViewModel.scrollController;
             scrollController.addListener(
                 () => homeViewModel.setScrollController(scrollController));
@@ -69,6 +72,7 @@ class HomeScreen extends StatelessWidget {
   AppBar appBarWidget(
       GlobalKey<ScaffoldState> scaffoldKey, BuildContext context) {
     return AppBar(
+      // User drawer
       leading: GestureDetector(
         onTap: () => scaffoldKey.currentState!.openDrawer(),
         child: const Padding(
@@ -80,12 +84,14 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+      // App center icon
       centerTitle: true,
       title: Image.asset(
         "assets/images/pill.png",
         width: 40.0,
       ),
       actions: [
+        // For search page
         GestureDetector(
           onTap: () => Navigator.push(
               context, customPageTransitionFadeIn(screen: SearchScreen())),
@@ -137,6 +143,7 @@ class HomeScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          // Label guides for name type
           Row(
             children: [
               const Icon(
@@ -159,6 +166,7 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 16.0),
             ],
           ),
+          // Sort button
           GestureDetector(
             onTap: () {
               if (homeViewModel.isAZSorted) {

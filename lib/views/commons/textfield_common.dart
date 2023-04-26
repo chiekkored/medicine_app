@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_app/utilities/constants/color_constant.dart';
+import 'package:medicine_app/utilities/constants/sizing_constant.dart';
 
 /// Custom Text Field.
 ///
@@ -31,12 +32,12 @@ class CustomTextFormField extends StatelessWidget {
       onTap: onTap,
       readOnly: readOnly,
       style: Theme.of(context).textTheme.labelMedium!.copyWith(
-            fontSize: 16.0,
+            fontSize: Sizing.t16,
           ),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: 16.0,
+              fontSize: Sizing.t16,
             ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(32.0),

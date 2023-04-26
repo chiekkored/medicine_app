@@ -8,6 +8,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Initialize HomeViewModel
     HomeViewModel homeViewModel =
         Provider.of<HomeViewModel>(context, listen: false);
     // Get device width
@@ -17,6 +18,7 @@ class SplashScreen extends StatelessWidget {
       body: FutureBuilder<void>(
           future: homeViewModel.fetchData(),
           builder: (context, snapshot) {
+            // If connection is loading
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: Image.asset(
@@ -25,6 +27,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               );
             }
+            // Switch to HomeScreen if data is loaded
             return const HomeScreen();
           }),
     );
