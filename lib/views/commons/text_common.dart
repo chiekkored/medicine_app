@@ -17,10 +17,10 @@ class CustomTextBold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
-          fontSize: fontSize,
-          fontWeight: FontWeight.bold,
-          color: Colors.grey[800]),
+      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: fontSize,
+          ),
     );
   }
 }
@@ -42,7 +42,9 @@ class CustomTextNormal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(fontSize: fontSize, color: Colors.grey[800]),
+      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+            fontSize: fontSize,
+          ),
     );
   }
 }

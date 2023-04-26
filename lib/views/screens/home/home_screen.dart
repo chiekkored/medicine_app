@@ -109,7 +109,10 @@ class HomeScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
           children: const [
-            Text("Developed by: Chiekko Red Alino"),
+            CustomTextNormal(
+              text: "Developed by: Chiekko Red Alino",
+              fontSize: 16.0,
+            ),
           ],
         ),
       ),

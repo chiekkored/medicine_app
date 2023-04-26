@@ -30,8 +30,14 @@ class CustomTextFormField extends StatelessWidget {
       controller: textFieldController,
       onTap: onTap,
       readOnly: readOnly,
+      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+            fontSize: 16.0,
+          ),
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+              fontSize: 16.0,
+            ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(32.0),
           borderSide: const BorderSide(

@@ -4,6 +4,7 @@ This application is a simple application for managing medicine list from a dummy
 
 # Key features
 
+- Dark mode feature.
 - Data from a free API host for drug lists.
 - Pull down refresh feature.
 - Data are stored locally.
