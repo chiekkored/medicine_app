@@ -1,5 +1,19 @@
 # Medicine App
 
+This application is a simple application for managing medicine list from a dummy API. With its simple interface, you can add, view, edit, and delete an item from the list.
+
+# Key features
+
+- Data from a free API host for drug lists.
+- Pull down refresh feature.
+- Data are stored locally.
+- Persistent scroll feature. Even if you close the app, the position stays where you left.
+- Sort filter A-Z, Z-A.
+- Search filter query.
+- Used Provider as state management - All widget are stateless.
+- Can add, edit, and delete item. (List are swipable)
+- Reusable widgets are provided for consistency and performance-wise.
+
 ## **Developer(s):**
 
 - Chiekko Red
@@ -25,7 +39,7 @@ assets
  └── svg*
 lib
  └── core
-      └── extensions*
+      └── extensions
       └── models
       └── providers*
       └── viewmodels
@@ -148,7 +162,7 @@ Custom imported SVG files directory.
 
 Core files that completes the **MVVM Architecture**.
 
-## `lib/core/extensions`<span style="color:red;">\*</span>
+## `lib/core/extensions`
 
 Extending data type methods are created here.
 

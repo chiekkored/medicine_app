@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:medicine_app/core/extensions/string_extension.dart';
 import 'package:medicine_app/core/models/medicine_model.dart';
 import 'package:medicine_app/core/viewmodels/home_viewmodel.dart';
 import 'package:medicine_app/utilities/constants/color_constant.dart';
+import 'package:medicine_app/utilities/constants/medicine_constant.dart';
 import 'package:medicine_app/utilities/constants/sizing_constant.dart';
 import 'package:medicine_app/views/commons/listtile_common.dart';
 import 'package:medicine_app/views/commons/progress_indicator_common.dart';
+import 'package:medicine_app/views/commons/text_common.dart';
 import 'package:medicine_app/views/commons/transition_common.dart';
 import 'package:medicine_app/views/screens/medicine/medicine_form_screen.dart';
 import 'package:medicine_app/views/screens/search/search_screen.dart';
@@ -129,8 +132,30 @@ class HomeScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
           horizontal: Sizing.w16, vertical: Sizing.h8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.local_pharmacy_rounded,
+                color: Colors.blue,
+              ),
+              CustomTextBold(
+                  text: MedicineConstants.branded.capitalizeFirstLetter,
+                  fontSize: 16.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: Sizing.h8),
+                child: CustomTextBold(text: "•", fontSize: 16.0),
+              ),
+              const Icon(
+                Icons.local_pharmacy_rounded,
+                color: Colors.amber,
+              ),
+              CustomTextBold(
+                  text: MedicineConstants.generic.capitalizeFirstLetter,
+                  fontSize: 16.0),
+            ],
+          ),
           GestureDetector(
             onTap: () {
               if (homeViewModel.isAZSorted) {

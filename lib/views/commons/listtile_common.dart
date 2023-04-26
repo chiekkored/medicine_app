@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:medicine_app/core/extensions/string_extension.dart';
 import 'package:medicine_app/core/models/medicine_model.dart';
 import 'package:medicine_app/core/viewmodels/home_viewmodel.dart';
 import 'package:medicine_app/utilities/constants/color_constant.dart';
+import 'package:medicine_app/views/commons/text_common.dart';
 import 'package:medicine_app/views/screens/medicine/medicine_form_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -31,8 +33,11 @@ class CustomListTile extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        title: Text(medicine.drugName),
-        subtitle: Text(medicine.nameType),
+        leading: Icon(
+          Icons.local_pharmacy_rounded,
+          color: medicine.nameType == "B" ? Colors.blue : Colors.amber,
+        ),
+        title: CustomTextNormal(text: medicine.drugName, fontSize: 16.0),
       ),
     );
   }

@@ -13,4 +13,10 @@ class MedicineConstants {
 
   /// `scroll`
   static const String scroll = "scroll";
+
+  /// `generic`
+  static const String generic = "generic";
+
+  /// `branded`
+  static const String branded = "branded";
 }

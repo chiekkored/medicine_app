@@ -137,6 +137,11 @@ class MedicineFormScreen extends StatelessWidget {
               const Divider(),
               ListTile(
                 onTap: () => Navigator.pop(context, "Branded"),
+                leading: const Icon(
+                  Icons.local_pharmacy_rounded,
+                  color: Colors.blue,
+                  size: 32.0,
+                ),
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: Sizing.h8, horizontal: Sizing.w16),
                 title: const CustomTextNormal(text: "Branded", fontSize: 16.0),
@@ -147,6 +152,11 @@ class MedicineFormScreen extends StatelessWidget {
               ),
               ListTile(
                 onTap: () => Navigator.pop(context, "Generic"),
+                leading: const Icon(
+                  Icons.local_pharmacy_rounded,
+                  color: Colors.amber,
+                  size: 32.0,
+                ),
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: Sizing.h8, horizontal: Sizing.w16),
                 title: const CustomTextNormal(text: "Generic", fontSize: 16.0),
