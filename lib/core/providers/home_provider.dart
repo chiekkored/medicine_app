@@ -13,11 +13,13 @@ class HomeProvider extends ChangeNotifier {
   bool _isLoading = true;
   bool _isAZSorted = false;
   List<MedicineModel> _medicineList = [];
+  List<MedicineModel> _searchResultMedicineList = [];
   ScrollController _scrollController = ScrollController();
 
   bool get isLoading => _isLoading;
   bool get isAZSorted => _isAZSorted;
   List<MedicineModel> get medicineList => _medicineList;
+  List<MedicineModel> get searchResultMedicineList => _searchResultMedicineList;
   ScrollController get scrollController => _scrollController;
 
   void setLoading(bool value) {
@@ -78,6 +80,14 @@ class HomeProvider extends ChangeNotifier {
     _medicineList.sort((a, b) => a.drugName.compareTo(b.drugName));
     await setMedicineListToLocal();
     _isAZSorted = !_isAZSorted;
+    notifyListeners();
+  }
+
+  void searchMedicineList(String query) {
+    _searchResultMedicineList = _medicineList
+        .where((medicine) =>
+            medicine.drugName.toLowerCase().contains(query.toLowerCase()))
+        .toList();
     notifyListeners();
   }
 
